@@ -41,3 +41,12 @@ class User:
             flash('This Email is already Taken', 'register')
             is_valid = False
         return is_valid
+    
+    
+    @classmethod
+    def login_email(cls,data):
+        query = "SELECT * FROM user WHERE email = %(email)s;"
+        result = connectToMySQL("cookbook").query_db(query,data)
+        if len(result) < 1:
+            return False
+        return cls(result[0])
