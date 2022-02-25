@@ -18,4 +18,29 @@ def description(num):
 def delete(num):
     data = {'id': num}
     Recipe.delete(data)
-    return redirect('/login')
+    return redirect(f"/dashboard/{session['user_id']}")
+
+@app.route('/creator/<int:num>')
+def create_rec(num):
+    return render_template('create.html', user = num)
+
+@app.route('/create' , methods =['POST'])
+def add_rec():
+    data= {
+        'name': request.form['name'],
+
+        'description': request.form['description'],
+
+        'instructions': request.form['instructions'],
+
+        'date': request.form['date'],
+        
+        'bool': request.form['bool'],
+        
+        'user_id': request.form['user_id']
+    }
+    if not Recipe.validate_rec(request.form):
+        return redirect(f"/creator/{request.form['user_id']}")
+    num1 = request.form['user_id']
+    Recipe.add(data)
+    return redirect(f'/creator/{num1}')

@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<meta name="Description" content="Enter your description here"/>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.1.0/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+<link rel="stylesheet" href="assets/css/style.css">
+<title>Title</title>
+</head>
+<body>
+    <h1>Add New Recipe</h1>
+    <hr>
+    {% with messages = get_flashed_messages() %}
+                {% if messages %}
+                    {% for message in messages %}
+                        <p style="color: red; font-weight: bold;">{{message}}</p>
+                    {% endfor %}
+                {% endif %}
+            {% endwith %}
+        
+    <form action="/create" method="POST">
+        <div class="input-group flex-nowrap">
+            <span class="input-group-text" id="addon-wrapping">name</span>
+            <input type="text" class="form-control" name="name">
+        </div>
+        <br>
+        <div class="input-group flex-nowrap">
+            <span class="input-group-text" >desciption:</span>
+            <input type="text" class="form-control" name= 'description'>
+        </div>
+        <br>
+        <div class="input-group flex-nowrap">
+            <span class="input-group-text">instructions:</span>
+            <input type="text" class="form-control" name="instructions">
+        </div>
+        <br>
+        <div class="input-group input-group-sm mb-3">
+            <span class="input-group-text" >Date made on</span>
+            <input type="date" class="form-control" name="date">
+        </div>
+        <p>Under 30 mins ?</p>
+        <div class="form-check">
+            <input class="form-check-input" type="radio" name="bool" value="Yes">
+            <label class="form-check-label" >
+                Yes
+            </label>
+        </div>
+        <div class="form-check">
+            <input class="form-check-input" type="radio" name="bool" value="No" checked>
+            <label class="form-check-label">
+                No
+            </label>
+        </div>
+        <input type="hidden" value="{{user}}" name="user_id">
+        <button type="submit">Add</button>
+    </form>
+</body>
+</html>

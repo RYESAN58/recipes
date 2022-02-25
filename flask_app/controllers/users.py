@@ -43,7 +43,8 @@ def home(num1):
     id = {
         'id': num1
     }
-    user_recipe =  Recipe.get_by_id(id)
+    user_recipe =  Recipe.get_all_from_user(id)
+
     if session['logged_in'] == True:
         return render_template('dashboard.html', name = session['user_name'],  x= session['user_id'], array = user_recipe)
     else:
