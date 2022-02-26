@@ -1,3 +1,4 @@
+from turtle import update
 from flask_app import app
 from flask import render_template, redirect, request, session, flash
 from flask_app.models.recipe import Recipe
@@ -44,3 +45,32 @@ def add_rec():
     num1 = request.form['user_id']
     Recipe.add(data)
     return redirect(f'/creator/{num1}')
+
+@app.route('/update/<int:num>')
+def update(num):
+    data = {'id': num}
+    edit = Recipe.get_by_id(data)
+    return render_template('update.html', update = edit)
+
+
+@app.route('/update_rec', methods=['post'])
+def new_rec():
+    data = {
+        'name': request.form['name'],
+
+        'description': request.form['description'],
+
+        'instructions': request.form['instructions'],
+
+        'date': request.form['date'],
+        
+        'bool': request.form['bool'],
+
+        'id': request.form['id']
+    }
+    if not Recipe.validate_rec(request.form):
+        return redirect(f"/update/{request.form['id']}")
+    user = request.form['id']
+    Recipe.update(data)
+    return redirect(f'/recipe/{user}')
+    

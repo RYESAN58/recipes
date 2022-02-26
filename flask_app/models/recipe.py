@@ -50,3 +50,8 @@ class Recipe:
     def get_all_from_user(cls, data):
         query = 'SELECT * FROM recipes WHERE user_id = %(id)s'
         return connectToMySQL('cookbook').query_db(query, data)
+
+    @classmethod
+    def update(cls, data):
+        query = "UPDATE `cookbook`.`recipes` SET `description` = %(description)s, `instructions` = %(instructionss)s, `date` = %(date)s, `name` = %(name)s, `bool` = %(bool)s WHERE (`id` = %(id)s);"
+        return connectToMySQL('cookbook').query_db(query, data)
