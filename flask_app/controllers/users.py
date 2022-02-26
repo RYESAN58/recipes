@@ -40,6 +40,8 @@ def creator():
 
 @app.route('/dashboard/<int:num1>')
 def home(num1):
+    if session['user_id'] != num1:
+        return redirect('/')
     id = {
         'id': num1
     }
