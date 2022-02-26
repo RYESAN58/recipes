@@ -13,7 +13,7 @@ def description(num):
         'id': num
     }
     x = Recipe.get_by_id(data)
-    return render_template('recipes.html', the_recipe = x)
+    return render_template('recipes.html', the_recipe = x, x= session['user_id'])
 
 @app.route('/delete/<int:num>')
 def delete(num):
@@ -23,7 +23,7 @@ def delete(num):
 
 @app.route('/creator/<int:num>')
 def create_rec(num):
-    return render_template('create.html', user = num)
+    return render_template('create.html', user = num, x= session['user_id'])
 
 @app.route('/create' , methods =['POST'])
 def add_rec():
@@ -44,13 +44,13 @@ def add_rec():
         return redirect(f"/creator/{request.form['user_id']}")
     num1 = request.form['user_id']
     Recipe.add(data)
-    return redirect(f'/creator/{num1}')
+    return redirect(f'/creator/{num1}', x = session['user_id'])
 
 @app.route('/update/<int:num>')
 def update(num):
     data = {'id': num}
     edit = Recipe.get_by_id(data)
-    return render_template('update.html', update = edit)
+    return render_template('update.html', update = edit, x= session['user_id'])
 
 
 @app.route('/update_rec', methods=['post'])
@@ -72,5 +72,5 @@ def new_rec():
         return redirect(f"/update/{request.form['id']}")
     user = request.form['id']
     Recipe.update(data)
-    return redirect(f'/recipe/{user}')
+    return redirect(f'/recipe/{user}', x= session['user_id'])
     

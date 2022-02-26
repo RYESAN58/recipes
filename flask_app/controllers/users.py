@@ -76,3 +76,8 @@ def login():
     session['user_name'] = user_in_db.firstname
     if session['logged_in'] == True:
         return redirect(f"/dashboard/{xray}")
+
+@app.route('/home1/<int:num>')
+def home1(num):
+    print(session['user_id'])
+    return redirect(f"/dashboard/{num}")

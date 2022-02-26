@@ -11,6 +11,8 @@
 <title>Title</title>
 </head>
 <body>
+    <a href="http://127.0.0.1:5000/home1/{{x}}">HOME</a>
+    <a href="http://127.0.0.1:5000/">Logout</a>
     <h1>Update Recipe</h1>
     <hr>
     {% with messages = get_flashed_messages() %}
@@ -21,6 +23,7 @@
                 {% endif %}
             {% endwith %}
     {%for i in update%}
+
     <form action="/update_rec" method="POST">
         <div class="input-group flex-nowrap">
             <span class="input-group-text" id="addon-wrapping">name</span>
